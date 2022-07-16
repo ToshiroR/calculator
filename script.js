@@ -14,41 +14,41 @@ buttons.forEach(btn => {
     let action = target.dataset.action;
     let display1 = displayOne.textContent;
     let display2 = displayTwo.textContent;
+    
+    
 
+    if (action === 'clear') {
+      displayOne.textContent = '0';
+      displayTwo.textContent = '';
+    
+    }
 
-    if (display2 === "0" && !action) {
-      displayTwo.textContent = keyText;
-    } 
+    else if (action === "backspace") {
+      displayOne.textContent = display1.slice(0,-1)
+    }
 
-    if (display2 !== "0") {
-      displayTwo.textContent = display2 + keyText;
-      displayOne.textContent = display2 + keyText;
+    else if (action === "calculate") {
+      displayOne.textContent = display1
+      displayTwo.textContent = calculate(display1)
       
     }
 
-    if (action === 'clear') {
-      displayOne.textContent = '';
-      displayTwo.textContent = '0';
+    else if (display1 === '0' && !action) {
+      displayOne.textContent = keyText;
+    } 
+
+    else if (display1 !== "0") {
+      displayOne.textContent = display1 + keyText;
     }
 
-    if (action === "backspace") {
-      displayOne.textContent = display2
-      displayTwo.textContent = display2.substring(0, display2.length - 1)
-    }
+    
+    
+    console.log(display1)
+    
 
-    if (action === "calculate") {
-      displayOne.textContent = `${display2}`
-      displayTwo.textContent = `${calculate(display2)}`
-    }
-
-
-console.log(action)
 
   })
-
-
-
-
+    
 
 })
 
