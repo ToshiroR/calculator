@@ -9,29 +9,70 @@ buttons.forEach(btn => {
   btn.addEventListener('click', function(e) {
 
  
-    const target = e.target;
-    const keyText = target.textContent;
-    const action = target.dataset.action;
+    let target = e.target;
+    let keyText = target.textContent;
+    let action = target.dataset.action;
     let display1 = displayOne.textContent;
     let display2 = displayTwo.textContent;
 
 
-    if (display2 === "0") {
-    displayOne.textContent = keyText;
-    displayTwo.textContent = keyText;
-  
+    if (display2 === "0" && !action) {
+      displayTwo.textContent = keyText;
     } 
+
     if (display2 !== "0") {
-    displayOne.textContent = display1;
-    displayTwo.textContent = display2 + keyText;
+      displayTwo.textContent = display2 + keyText;
+      displayOne.textContent = display2 + keyText;
+      
     }
 
     if (action === 'clear') {
-    displayOne.textContent = '';
-    displayTwo.textContent = '0';
-  }
+      displayOne.textContent = '';
+      displayTwo.textContent = '0';
+    }
 
+    if (action === "backspace") {
+      displayOne.textContent = display2
+      displayTwo.textContent = display2.substring(0, display2.length - 1)
+    }
+
+    if (action === "calculate") {
+      displayOne.textContent = `${display2}`
+      displayTwo.textContent = `${calculate(display2)}`
+    }
+
+
+console.log(action)
+
+  })
+
+
+
+
+
+})
+
+
+function calculate(n1, operator, n2) {
   
-})
+  total = ''
+  
+  if (operator === '+'){
+    total = n1 + n2;
+    return total
+  }
+  if (operator === '-'){
+    total = n1 - n2;
+    return total
+  }
+  if (operator === '*'){
+    total = n1 * n2;
+    return total
+  }
+  if (operator === '/'){
+    total = n1 / n2
+    return total
+  }
+}
 
-})
+console.log(calculate(2, "+", 3))
