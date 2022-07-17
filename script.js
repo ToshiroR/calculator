@@ -16,6 +16,23 @@ buttons.forEach(btn => {
     let display2 = displayTwo.textContent;
     
     
+    let operator = 0;
+    let firstInput = 0;
+    let secondInput = 0;
+    
+    
+    
+    
+
+    if (action === 'add' ||
+        action === 'subtract' ||
+        action === 'multiply' ||
+        action === 'divide') {
+          firstInput = display1;
+          operator = action;
+          displayOne.textContent = display1 + keyText;
+          displayTwo.textContent = "";
+    }
 
     if (action === 'clear') {
       displayOne.textContent = '0';
@@ -23,56 +40,61 @@ buttons.forEach(btn => {
     
     }
 
-    else if (action === "backspace") {
+    if (action === "backspace") {
       displayOne.textContent = display1.slice(0,-1)
+      displayTwo.textContent = ''
     }
 
-    else if (action === "calculate") {
-      displayOne.textContent = display1
-      displayTwo.textContent = calculate(display1)
+    if (action === "calculate") {
       
+      secondInput = display2;
+      displayTwo.textContent = `${calculate(firstInput, operator, secondInput)}`;
+    
+     
     }
 
-    else if (display1 === '0' && !action) {
+    if (display1 === '0' && !action) {
       displayOne.textContent = keyText;
+      displayTwo.textContent = keyText;
     } 
 
-    else if (display1 !== "0") {
+    if (display1 !== "0" && !action) {
       displayOne.textContent = display1 + keyText;
+      displayTwo.textContent = display2 + keyText;
     }
 
-    
-    
-    console.log(display1)
-    
-
-
+    console.log(firstInput)
+    console.log(operator)
+    console.log(secondInput)
   })
-    
+
 
 })
 
 
-function calculate(n1, operator, n2) {
+function calculate(firstInput, operator, secondInput) {
   
   total = ''
   
-  if (operator === '+'){
-    total = n1 + n2;
+  if (operator === 'add'){
+    total = parseInt(firstInput) + parseInt(secondInput);
     return total
   }
-  if (operator === '-'){
-    total = n1 - n2;
+  if (operator === 'subtract'){
+    total = parseInt(firstInput) - parseInt(secondInput);
     return total
   }
-  if (operator === '*'){
-    total = n1 * n2;
+  if (operator === 'multiply'){
+    total = parseInt(firstInput) * parseInt(secondInput);
     return total
   }
-  if (operator === '/'){
-    total = n1 / n2
+  if (operator === 'divide'){
+    total = parseInt(firstInput) / parseInt(secondInput)
     return total
   }
 }
 
-console.log(calculate(2, "+", 3))
+
+let number = 63+6;
+console.log(calculate(number))
+
