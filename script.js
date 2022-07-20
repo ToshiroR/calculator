@@ -2,13 +2,14 @@ const displayOne = document.querySelector(".display1");
 const displayTwo = document.querySelector(".display2");
 const calKey = document.querySelector('calculator-buttons')
 const buttons = document.querySelectorAll("button");
+const calculator = document.querySelector(".calculator")
 
 
 buttons.forEach(btn => {
   
   btn.addEventListener('click', function(e) {
 
- 
+    
     let target = e.target;
     let keyText = target.textContent;
     let action = target.dataset.action;
@@ -16,22 +17,16 @@ buttons.forEach(btn => {
     let display2 = displayTwo.textContent;
     
     
-    let operator = 0;
-    let firstInput = 0;
-    let secondInput = 0;
-    
-    
-    
-    
 
     if (action === 'add' ||
         action === 'subtract' ||
         action === 'multiply' ||
         action === 'divide') {
-          firstInput = display1;
-          operator = action;
           displayOne.textContent = display1 + keyText;
           displayTwo.textContent = "";
+          calculator.dataset.operator = action;
+          calculator.dataset.firstValue = display1;
+          calculator.dataset.previousKeyType = 'operator';
     }
 
     if (action === 'clear') {
@@ -46,9 +41,10 @@ buttons.forEach(btn => {
     }
 
     if (action === "calculate") {
-      
-      secondInput = display2;
-      displayTwo.textContent = `${calculate(firstInput, operator, secondInput)}`;
+      const firstInput = calculator.dataset.firstValue;
+      const secondInput = display2;
+      const operator = calculator.dataset.operator;
+      displayTwo.textContent = calculate(firstInput, operator, secondInput)
     
      
     }
@@ -62,7 +58,7 @@ buttons.forEach(btn => {
       displayOne.textContent = display1 + keyText;
       displayTwo.textContent = display2 + keyText;
     }
-
+    
     console.log(firstInput)
     console.log(operator)
     console.log(secondInput)
@@ -70,6 +66,8 @@ buttons.forEach(btn => {
 
 
 })
+
+
 
 
 function calculate(firstInput, operator, secondInput) {
@@ -95,6 +93,5 @@ function calculate(firstInput, operator, secondInput) {
 }
 
 
-let number = 63+6;
-console.log(calculate(number))
+
 
